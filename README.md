@@ -1,17 +1,21 @@
 # WSL2 PHP Development
 
+![Microsoft loves Linux](microsoftloveslinux.0.0.1473928986.webp)
+
 We use WSL2 (Bash on Windows) for local development on Windows.
-You may install this on a Windows 10 machine with build 1904 or later (May 2020 release).
+You may install this on a Windows 10-11 machine with build 1904 or later (May 2020 release).
 
 ## Installing WSL2
 
 - Open Powershell as administrator
 - Run:
-- `wsl --install`
-- `dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart`
-- `dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart`
-- `wsl --set-default-version 2`
-- Run: `wsl --install -d Ubuntu`
+```
+wsl --install
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+wsl --set-default-version 2
+wsl --install -d Ubuntu
+```
 - Install Ubuntu from the Microsoft store and launch Ubunto from start
 - WSL will install automatically. Please wait till the username prompt.
 - Enter your username. We prefer to use our firstname in lowercase format: i.e. John Doe -> username 'john'
@@ -30,10 +34,10 @@ You may install this on a Windows 10 machine with build 1904 or later (May 2020 
 - `echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list`
 - `apt update`
 - `apt upgrade -y`
-- Install PHP/webserver/database: `apt install -y php8.2-fpm php8.2-mbstring php8.2-curl php8.2-bz2 php8.2-zip php8.2-xml php8.2-gd php8.2-mysql php8.2-intl php8.2-sqlite3 php8.2-soap php8.2-bcmath php8.2-memcached php8.2-redis php8.2-xmlrpc php8.2-imagick apt-transport-https nginx mysql-client mysql-server`
+- Install PHP/webserver/database: `apt install -y php8.2-fpm php8.2-mbstring php8.2-curl php8.2-bz2 php8.2-zip php8.2-xml php8.2-gd php8.2-mysql php8.2-intl php8.2-sqlite3 php8.2-soap php8.2-bcmath php8.2-memcached php8.2-memcache php8.2-xdebug php8.2-redis php8.2-xmlrpc php8.2-imagick apt-transport-https nginx mysql-client mysql-server`
 - Optional dependencies: `apt install -y nodejs rlwrap git dos2unix memcached default-jre htop yarn unzip dh-autoreconf redis-server pv ack unoconv`
 - `sudo npm install gulp-cli -g`
-- `locale-gen nl_NL && locale-gen nl_NL.UTF-8 && locale-gen --purge`
+- `locale-gen ru_RU && locale-gen ru_RU.UTF-8 && locale-gen --purge`
 - Copy your private key to the `~/.ssh/` directory
 
 # nginx
@@ -50,6 +54,19 @@ We have some config items to change in the www PHP FPM pool:
 - `group` should be set to your username. Most likely your first name in lowercase.
 - `listen` should be set to `127.0.0.1:9250`
 - You can save those changes.
+
+# XDebug (optional)
+add configs to make possible run debug sessions wia phpStorm:
+YOUR_WINDOWS_IP_FROM_IP_CONFIG - Its your client host ip (not WSL ip). See its on Powershell `ipconfig`, example 192.168.1.140
+`sudo vim /etc/php/8.2/mods-available/xdebug.ini`
+```
+xdebug.mode = debug
+xdebug.discover_client_host = false
+xdebug.client_host = YOUR_WINDOWS_IP_FROM_IP_CONFIG
+xdebug.client_port = 9003
+xdebug.start_with_request = trigger
+xdebug.idekey = PHPSTORM
+```
 
 # MySQL
 We just need to set the root password to 'secret'. The other default configuration is fine for your usecase:
