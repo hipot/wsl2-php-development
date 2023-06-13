@@ -44,7 +44,7 @@ wsl --install -d Ubuntu
 Nginx needs to be configured. This depends on how you want to setup your vhosts. 
 We've included our '/etc/nginx' folder (excluding the SSL certificates) in this repository as reference.
 You can copy this directory to your /etc/nginx folder:
-- Run `cd /etc/nginx && explorer.exe .` and copy the files from that folder over.
+- Run `cd /etc/nginx && /mnt/c/Windows/explorer.exe .` and copy the files from that folder over.
 - You need to symlink the /etc/nginx/code folder to your code folder. We recommend this is under `~/code`
 
 # php-fpm
