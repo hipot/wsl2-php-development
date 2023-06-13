@@ -7,10 +7,10 @@ You may install this on a Windows 10 machine with build 1904 or later (May 2020 
 
 - Open Powershell as administrator
 - Run:
-`wsl --install
-dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-wsl --set-default-version 2`
+- `wsl --install`
+- `dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart`
+- `dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart`
+- `wsl --set-default-version 2`
 - Run: `wsl --install -d Ubuntu`
 - Install Ubuntu from the Microsoft store and launch Ubunto from start
 - WSL will install automatically. Please wait till the username prompt.
